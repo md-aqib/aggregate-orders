@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const order = new Schema({
   orderId: String,
   userId: {
-    type: String,
+    type: Date,
     ref: "user",
   },
   subTotal: Number,
