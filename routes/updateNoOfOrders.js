@@ -3,18 +3,15 @@ const DBuser = require("../models/user");
 
 module.exports = async (req, res) => {
   try {
-    const orders = await DBorder.find({}).populate("userId", "_id");
-    console.log(">>>>>>>>>>>>>>>", orders);
-    process.exit();
-    // const users = await DBuser.find({});
-    // users.forEach(async (ele) => {
-    //   let orderCount = await DBorder.countDocuments({ userId: ele.userId });
-    //   const updateData = await DBuser.updateOne(
-    //     { userId: ele.userId },
-    //     { $set: { noOfOrders: orderCount } }
-    //   );
-    //   return updateData;
-    // });
+    const users = await DBuser.find({});
+    users.forEach(async (ele) => {
+      let orderCount = await DBorder.countDocuments({ userId: ele._id });
+      const updateData = await DBuser.updateOne(
+        { _id: ele._id },
+        { $set: { noOfOrders: orderCount } }
+      );
+      return updateData;
+    });
     res.json({
       success: true,
       msg: "Order count updated Successfully",

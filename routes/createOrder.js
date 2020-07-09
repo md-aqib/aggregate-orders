@@ -23,12 +23,22 @@ const createOrder = async (req, res) => {
         });
       } else {
         let id = await createId();
-        await new DBorder({
+        let savedData = await new DBorder({
           orderId: id,
           userId: req.params.userid,
           subTotal: req.body.subTotal,
           date: new Date(),
         }).save();
+        if (savedData) {
+          await DBuser.findOneAndUpdate(
+            { _id: req.params.userid },
+            {
+              $push: { orderId: savedData._id },
+              $set: { noOfOrders: userData.orderId.length + 1 },
+            },
+            { useFindAndModify: false }
+          );
+        }
         res.json({
           success: true,
           msg: "Order placed",

@@ -1,6 +1,6 @@
 const DBuser = require("../models/user");
 
-const generateUserNo = async () => {
+const generateUID = async () => {
   try {
     let count = await DBuser.countDocuments({});
     let newCount = ++count;
@@ -14,9 +14,9 @@ const generateUserNo = async () => {
 const addUser = async (req, res) => {
   try {
     if (req.body.userName) {
-      let userNumber = await generateUserNo();
+      let uid = await generateUID();
       await new DBuser({
-        userNo: userNumber,
+        UID: uid,
         userName: req.body.userName,
       }).save();
       res.json({
