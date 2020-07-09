@@ -1,9 +1,6 @@
 const DBorder = require("../models/order");
 const DBuser = require("../models/user");
 
-// NOTE: we can do with another method using 'populate' if we save userId and orderId as objectId.
-// that would be more efficient, and less db call.
-
 module.exports = async (req, res) => {
   try {
     const users = await DBuser.find({});

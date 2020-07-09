@@ -6,7 +6,7 @@ const createId = async () => {
     let count = await DBorder.countDocuments({});
     let newCount = ++count;
     let finalCount = newCount > 9 ? newCount + "" : "0" + newCount;
-    return finalCount;
+    return `ORD-${finalCount}`;
   } catch (err) {
     throw new Error("Error in generating order id");
   }
@@ -15,7 +15,7 @@ const createId = async () => {
 const createOrder = async (req, res) => {
   try {
     if (req.body.subTotal && req.params.userid) {
-      let userData = await DBuser.findOne({ userId: req.params.userid });
+      let userData = await DBuser.findById(req.params.userid);
       if (!userData || userData === null) {
         res.json({
           success: false,
