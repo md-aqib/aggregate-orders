@@ -1,11 +1,12 @@
 const DBorder = require("../models/order");
 const DBuser = require("../models/user");
 
+// using populate method
 module.exports = async (req, res) => {
   try {
-    const users = await DBuser.find({});
+    const users = await DBuser.find({}).populate("orderId");
     users.forEach(async (ele) => {
-      let orderCount = await DBorder.countDocuments({ userId: ele._id });
+      let orderCount = ele.orderId.length;
       const updateData = await DBuser.updateOne(
         { _id: ele._id },
         { $set: { noOfOrders: orderCount } }
