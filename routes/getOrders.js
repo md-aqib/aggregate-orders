@@ -9,7 +9,6 @@ module.exports = async (req, res) => {
       let sum = ele.orderId.reduce((sum, ele) => {
         return sum + ele.subTotal;
       }, 0);
-      console.log(sum);
       let avg = (sum / ele.orderId.length).toFixed(2);
       return {
         userId: ele.UID,
