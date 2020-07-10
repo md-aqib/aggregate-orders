@@ -1,4 +1,3 @@
-const DBorder = require("../models/order");
 const DBuser = require("../models/user");
 
 // using populate method
