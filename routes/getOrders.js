@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
         userId: ele.UID,
         name: ele.userName,
         noOfOrders: ele.noOfOrders,
-        averageBillValue: avg,
+        averageBillValue: isNaN(avg) === true ? 0 : avg,
       };
     });
     res.json({

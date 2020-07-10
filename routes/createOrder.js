@@ -34,9 +34,9 @@ const createOrder = async (req, res) => {
             { _id: req.params.userid },
             {
               $push: { orderId: savedData._id },
-              $set: { noOfOrders: userData.orderId.length + 1 },
+              // $set: { noOfOrders: userData.orderId.length + 1 }, // if orderCount inc during order place
             },
-            { useFindAndModify: false }
+            { useFindAndModify: false } // for removing warning
           );
         }
         res.json({
